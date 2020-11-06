@@ -1,15 +1,22 @@
-import React from "react";
+import React, { Component } from "react";
+import DateInput from './components/DateInput.js';
+import Photo from './components/Photo.js';
 import "./App.css";
+import { render } from "@testing-library/react";
 
 function App() {
-  return (
-    <div className="App">
-      <p>
-        Read through the instructions in the README.md file to build your NASA
-        app! Have fun <span role="img" aria-label='go!'>🚀</span>!
-      </p>
-    </div>
-  );
-}
 
-export default App;
+  changeDate = e => {
+  
+      return (
+        <div className="App">
+          <h1>NASA's Picture of the Day</h1>
+          <DateInput />
+          <Photo />
+
+        </div>
+      );
+    }
+  }
+
+  export default App;
