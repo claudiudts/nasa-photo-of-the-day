@@ -1,41 +1,34 @@
-import React, { Component } from "react";
-import DateInput from "./components/DateInput";
-import Photo from "./components/Photo.js";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import "./App.css";
+import Picture from './components/Picture'; 
+import Footer from "./components/Footer";
+import Header from './components/Header';
 
 
-class App extends Component {
-  state = {
-    date: "",
-    photo: ""
-  };
-  
-  changeDate = e => {
-    e.preventDefault();
-    let dateFromInput = e.target[0].value;
-    this.setState({ date: dateFromInput });
-    this.getPhoto(dateFromInput);
-  };
-  
-  
-  getPhoto() {
-    fetch('https://api.nasa.gov/planetary/apod?api_key=HuxtTypi6hVRBtYcrHhOFrSHhQNl2BtGd4S4Jg4o&date=2020-03-09&hd=true')
-    .then(resp => resp.json())
-    .then(photoData => this.setState({ photo: photoData }));
-  };
-  
-  
-  render() {
-    return (
-      <div>
-        <h1>NASA's Astronomy Picture of the Day</h1>
-        <h2>Date: {this.date}</h2>
-        <DateInput changeDate={this.changeDate} />
-        <Photo photo={this.state.photo} />
+function App() {
+  const [nasaPhoto, setNasaPhoto] = useState([])
+  useEffect(() => {
+    axios.get("https://api.nasa.gov/planetary/apod?api_key=HuxtTypi6hVRBtYcrHhOFrSHhQNl2BtGd4S4Jg4o&date=2020-12-08")
+    .then((res) => {
+      console.log(res.data)
+      setNasaPhoto(res.data)
+    })
+  }, []);
+
+  if (!nasaPhoto) return <h3>Loading...</h3>;
+
+  return (
+    <div className="App">
+    <Header />
+    <Picture title={nasaPhoto.title} photo={nasaPhoto.url} date={nasaPhoto.date} info={nasaPhoto.explanation} />
+    <Footer copyright={nasaPhoto.copyright}/>
+      
       </div>
-    )
-  }
-}
+  );
+
+};
+
 
 
 export default App;
-
