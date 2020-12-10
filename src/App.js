@@ -9,7 +9,7 @@ import Header from './components/Header';
 function App() {
   const [nasaPhoto, setNasaPhoto] = useState([])
   useEffect(() => {
-    axios.get("https://api.nasa.gov/planetary/apod?api_key=HuxtTypi6hVRBtYcrHhOFrSHhQNl2BtGd4S4Jg4o&date=2020-12-08")
+    axios.get("https://api.nasa.gov/planetary/apod?api_key=HuxtTypi6hVRBtYcrHhOFrSHhQNl2BtGd4S4Jg4o&date=2020-12-10")
     .then((res) => {
       console.log(res.data)
       setNasaPhoto(res.data)
